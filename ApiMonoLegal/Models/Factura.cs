@@ -12,6 +12,7 @@ namespace ApiMonoLegal.Models
         public string cliente { get; set; }
         [BsonElement("ciudad")]
         public string ciudad { get; set; }
+
         [BsonElement("nit")]
         public long nit { get; set; }
         [BsonElement("totalFactura")]

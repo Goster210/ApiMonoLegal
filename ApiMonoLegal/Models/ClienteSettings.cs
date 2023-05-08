@@ -9,7 +9,6 @@
  
     }
 
-
     public interface IClienteSettings
     {
         string Collection { get; set; }

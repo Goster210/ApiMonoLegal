@@ -16,5 +16,8 @@ namespace ApiMonoLegal.Services
             //conexion con la coleccion (facturas)
             _Facturas = db.GetCollection<Factura>(settings.Collection);
         }
+        public List<Factura> Get() {
+            return _Facturas.Find(d => true).ToList();
+        }
     }
 }
