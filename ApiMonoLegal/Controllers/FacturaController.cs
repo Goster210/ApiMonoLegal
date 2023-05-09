@@ -20,5 +20,27 @@ namespace ApiMonoLegal.Controllers
         public ActionResult<List<Factura>> Get() {
             return _facturaServices.Get();
         }
+
+        [HttpPost("crear")]
+        public ActionResult <Factura> Create(Factura factura) {
+
+            _facturaServices.Create(factura);
+            return Ok(factura);
+        }
+
+        [HttpPut("editar")]
+        public ActionResult Update(Factura factura)
+        {
+            _facturaServices.Update(factura.codigoFactura, factura);
+            return Ok(factura);
+        }
+
+        [HttpDelete("eliminar/{codigoFactura}")]
+        public ActionResult Delete(String codigoFactura)
+        {
+            _facturaServices.Delete(codigoFactura);
+            return Ok();
+        }
+
     }
 }

@@ -6,7 +6,7 @@ namespace ApiMonoLegal.Models
     {
         
         [BsonId]
-        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
+        [BsonRepresentation(MongoDB.Bson.BsonType.String)]
         public string codigoFactura { get; set; }
         [BsonElement("cliente")]
         public string cliente { get; set; }
