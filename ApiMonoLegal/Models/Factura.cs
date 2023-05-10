@@ -10,7 +10,11 @@ namespace ApiMonoLegal.Models
         public string codigoFactura { get; set; }
         [BsonElement("cliente")]
         public string cliente { get; set; }
+
+        [BsonElement("correo")]
+        public string correo { get; set; }
         [BsonElement("ciudad")]
+
         public string ciudad { get; set; }
 
         [BsonElement("nit")]

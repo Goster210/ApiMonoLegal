@@ -40,6 +40,12 @@ public class Startup
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiMonoLegal", Version = "v1" });
         });
+        // configuracion de cors para no tener conflictos con los puetos y direcciones de los endpoints
+        services.AddCors(options => {
+            options.AddPolicy("NuevaPolitica", app => {
+                app.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+            });
+        });
     }
 
     // Este método se utiliza para configurar la forma en que la aplicación responde a las solicitudes.
@@ -59,11 +65,11 @@ public class Startup
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
-
+        app.UseCors("NuevaPolitica");
         app.UseRouting();
 
         app.UseAuthorization();
-
+        //peticiones a la api por medio del controlador (traigo los endpoints)
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
