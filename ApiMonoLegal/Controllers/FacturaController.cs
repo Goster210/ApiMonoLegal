@@ -9,16 +9,16 @@ namespace ApiMonoLegal.Controllers
     [ApiController]
     public class FacturaController : ControllerBase
     {
-        public FacturaServices _facturaServices;
+        public IFacturaServices _facturaServices;
 
-        public FacturaController(FacturaServices facturaServices) 
+        public FacturaController(IFacturaServices facturaServices) 
         {
             _facturaServices = facturaServices;
         }
         
         [HttpGet]
         public ActionResult<List<Factura>> Get() {
-            return _facturaServices.Get();
+            return Ok(_facturaServices.Get());
         }
         //CREAR UNA FACTURA
         [HttpPost("crear")]
@@ -39,16 +39,14 @@ namespace ApiMonoLegal.Controllers
         public ActionResult Delete(String codigoFactura)
         {
             _facturaServices.Delete(codigoFactura);
-            return Ok();
+            return Ok(codigoFactura);
         }
         //ENVIAR CORREO PARA MODIFICAR ESTADOS DE LAS FACTURAS
         [HttpGet("enviarCorreo/{codigoFactura}")]
         public ActionResult SendEmail(String codigoFactura)
         {
             _facturaServices.SendEmail(codigoFactura);
-
-
-            return Ok();
+            return Ok(codigoFactura);
         }
 
     }

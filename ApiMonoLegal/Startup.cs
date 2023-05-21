@@ -34,7 +34,8 @@ public class Startup
         services.Configure<ClienteSettings>(Configuration.GetSection(nameof(ClienteSettings)));
         //inyeccion
         services.AddSingleton<IClienteSettings>(d => d.GetRequiredService<IOptions<ClienteSettings>>().Value);
-        services.AddSingleton<FacturaServices>();
+        //inyeccion por medio de mi interfaz y los servicios
+        services.AddSingleton<IFacturaServices, FacturaServices>();
         services.AddControllers();
         services.AddSwaggerGen(c =>
         {

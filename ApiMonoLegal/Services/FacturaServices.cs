@@ -5,7 +5,7 @@ using System.Net.Mail;
 
 namespace ApiMonoLegal.Services
 {
-    public class FacturaServices
+    public class FacturaServices:IFacturaServices
     {
         private IMongoCollection<Factura> _Facturas;
 
