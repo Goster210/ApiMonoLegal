@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiMonoLegal", "ApiMonoLegal\ApiMonoLegal.csproj", "{6017A3AE-3363-4232-BABF-919A3FFCA1BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiMonoLegal", "ApiMonoLegal\ApiMonoLegal.csproj", "{6017A3AE-3363-4232-BABF-919A3FFCA1BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestApiMonoLegal", "UnitTestApiMonoLegal\UnitTestApiMonoLegal.csproj", "{0D3FD980-31FD-4F0C-8440-4A17C9B7AD9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{6017A3AE-3363-4232-BABF-919A3FFCA1BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6017A3AE-3363-4232-BABF-919A3FFCA1BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6017A3AE-3363-4232-BABF-919A3FFCA1BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D3FD980-31FD-4F0C-8440-4A17C9B7AD9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D3FD980-31FD-4F0C-8440-4A17C9B7AD9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D3FD980-31FD-4F0C-8440-4A17C9B7AD9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D3FD980-31FD-4F0C-8440-4A17C9B7AD9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

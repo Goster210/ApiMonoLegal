@@ -18,7 +18,8 @@ namespace ApiMonoLegal.Controllers
         
         [HttpGet]
         public ActionResult<List<Factura>> Get() {
-            return Ok(_facturaServices.Get());
+            var facturas = _facturaServices.Get();
+            return Ok(facturas);
         }
         //CREAR UNA FACTURA
         [HttpPost("crear")]
