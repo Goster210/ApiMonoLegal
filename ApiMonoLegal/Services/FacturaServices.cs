@@ -8,12 +8,11 @@ namespace ApiMonoLegal.Services
     public class FacturaServices:IFacturaServices
     {
         private IMongoCollection<Factura> _Facturas;
-         
+                
 
         public FacturaServices(IClienteSettings settings) 
         {
-
-        var clienteMongo = new MongoClient(settings.Server);
+            var clienteMongo = new MongoClient(settings.Server);
             //conexion con la base de datos
             var db = clienteMongo.GetDatabase(settings.Database);
             //conexion con la coleccion (facturas)
