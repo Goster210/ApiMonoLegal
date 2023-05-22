@@ -17,7 +17,7 @@ namespace UnitTestApiMonoLegal
         [Fact]
         public void Get()
         {
- 
+            //ESTA PRUEBA ES SATISFACTORIA SI EN LA BASE DE DATOS HAY UNA O MAS FACTURA 
             var clienteSettings = new Mock<IClienteSettings>();
             clienteSettings.Setup(s => s.Server).Returns("mongodb://localhost:27017");
             clienteSettings.Setup(s => s.Database).Returns("ClienteMonoLegal");
@@ -28,8 +28,16 @@ namespace UnitTestApiMonoLegal
             var facturaController = new FacturaController(facturaServices);
 
             var result = facturaController.Get();
-            //retorna la lista de Facturas por tal motivo no es un valor nulo
+            //esta prueba compreba que la lista no sea nula (vacia)
             Assert.NotNull(result);
+            //comprueba que el metodo get retorne una accion result de tipo lista facturas
+            var actionResult = Assert.IsType<ActionResult<List<Factura>>>(result);
+            //si la respuesta del metodo es ok captura el resultado del mismo (la lista de facturas)
+            var okResult = Assert.IsType<OkObjectResult>(actionResult.Result);
+            //captura la lista de las facturas 
+            var facturasResultantes = Assert.IsType<List<Factura>>(okResult.Value);
+            //comprobamos que las lista de facturas tenga almenos una factura
+            Assert.True(facturasResultantes.Count > 0);
 
         }
 
@@ -104,6 +112,51 @@ namespace UnitTestApiMonoLegal
 
             Assert.Equal(factura.codigoFactura, updatedFactura.codigoFactura);
 
+        }
+
+        [Fact]
+        public void Delete()
+        {
+            var facturaServices = new Mock<IFacturaServices>();
+            var newfactura = new Factura
+            {
+                codigoFactura = "P-00003",
+                cliente = "Daniel Felipe Cordoba",
+                correo = "rjuanjoser@gmail.com",
+                ciudad = "Paipa",
+                nit = 10548,
+                totalFactura = 3000,
+                subTotal = 200,
+                iva = 55,
+                retencion = 12,
+                fechaCreacion = null,
+                estado = "primerrecordatorio",
+                pagada = false,
+                fechaPago = null
+            };
+
+            //Llamo a mi controlador y le envio mi objeto facturaServices
+            var facturaController = new FacturaController(facturaServices.Object);
+            //Creo una factura
+                     
+            facturaController.Create(newfactura);
+
+            //elimino dicha factura
+            var deleteFactura = facturaController.Delete(newfactura.codigoFactura);
+
+            var okResult = Assert.IsType<OkObjectResult>(deleteFactura);
+            var codigoFacturaEliminada = Assert.IsType<String>(okResult.Value);
+
+            //miramos que el codigo de la factura sea el mismo que el de la factura eliminada 
+            Assert.Equal(newfactura.codigoFactura, codigoFacturaEliminada);
+
+        }
+
+        [Fact]
+        public void sendEmail()
+        {
+
+            //pendiente 
         }
     }
     }
