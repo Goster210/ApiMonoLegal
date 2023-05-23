@@ -24,7 +24,8 @@ namespace UnitTestApiMonoLegal
             clienteSettings.Setup(s => s.Collection).Returns("Factura");
 
             // Crear una instancia de facturaServices utilizando el mock de IClienteSettings
-            var facturaServices = new FacturaServices(clienteSettings.Object);
+            var emailServices = new EmailService();
+            var facturaServices = new FacturaServices(clienteSettings.Object, emailServices);
             var facturaController = new FacturaController(facturaServices);
 
             var result = facturaController.Get();
@@ -50,24 +51,23 @@ namespace UnitTestApiMonoLegal
             //creo un objeto de tipo (FacturaService)
             var facturaServices = new Mock<IFacturaServices>();
             // creo un objeto de tipo factura
-            var newFactura = new Factura
-            {
-                codigoFactura = "P-00003",
-                cliente = "Daniel Felipe Cordoba",
-                correo = "rjuanjoser@gmail.com",
-                ciudad = "Paipa",
-                nit = 10548,
-                totalFactura = 3000,
-                subTotal = 200,
-                iva = 55,
-                retencion = 12,
-                fechaCreacion = null,
-                estado = "primerrecordatorio",
-                pagada = false,
-                fechaPago = null
-            };
+            var newFactura = new Factura(
+                "P-00003",
+                "Daniel Felipe Cordoba",
+                "rjuanjoser@gmail.com",
+                "Paipa",
+                10548,
+                3000,
+                200,
+                55,
+                12,
+                null,
+                "primerrecordatorio",
+                false,
+                null
+            );
 
-   
+
             //Llamo a mi controlador y le envio mi objeto facturaServices
             var facturaController = new FacturaController(facturaServices.Object);
             //Conexion con el controlador para la creacion de la factura
@@ -86,22 +86,21 @@ namespace UnitTestApiMonoLegal
         public void Update()
         {
             var facturaServicesMock = new Mock<IFacturaServices>();
-            var factura = new Factura
-            {
-                codigoFactura = "P-00003",
-                cliente = "Daniel Felipe Cordoba",
-                correo = "rjuanjoser@gmail.com",
-                ciudad = "Paipa",
-                nit = 10548,
-                totalFactura = 3000,
-                subTotal = 200,
-                iva = 55,
-                retencion = 12,
-                fechaCreacion = null,
-                estado = "primerrecordatorio",
-                pagada = false,
-                fechaPago = null
-            };
+            var factura = new Factura(
+                "P-00003",
+                "Daniel Felipe Cordoba",
+                "rjuanjoser@gmail.com",
+                "Paipa",
+                10548,
+                3000,
+                200,
+                55,
+                12,
+                null,
+                "primerrecordatorio",
+                false,
+                null
+            );
             
             var controller = new FacturaController(facturaServicesMock.Object);
             var result = controller.Update(factura);
@@ -118,22 +117,21 @@ namespace UnitTestApiMonoLegal
         public void Delete()
         {
             var facturaServices = new Mock<IFacturaServices>();
-            var newfactura = new Factura
-            {
-                codigoFactura = "P-00003",
-                cliente = "Daniel Felipe Cordoba",
-                correo = "rjuanjoser@gmail.com",
-                ciudad = "Paipa",
-                nit = 10548,
-                totalFactura = 3000,
-                subTotal = 200,
-                iva = 55,
-                retencion = 12,
-                fechaCreacion = null,
-                estado = "primerrecordatorio",
-                pagada = false,
-                fechaPago = null
-            };
+            var newfactura = new Factura(
+                "P-00003",
+                "Daniel Felipe Cordoba",
+                "rjuanjoser@gmail.com",
+                "Paipa",
+                10548,
+                3000,
+                200,
+                55,
+                12,
+                null,
+                "primerrecordatorio",
+                false,
+                null
+            );
 
             //Llamo a mi controlador y le envio mi objeto facturaServices
             var facturaController = new FacturaController(facturaServices.Object);

@@ -36,6 +36,7 @@ public class Startup
         services.AddSingleton<IClienteSettings>(d => d.GetRequiredService<IOptions<ClienteSettings>>().Value);
         //inyeccion por medio de mi interfaz y los servicios
         services.AddSingleton<IFacturaServices, FacturaServices>();
+        services.AddSingleton<IEmailService, EmailService>();
         services.AddControllers();
         services.AddSwaggerGen(c =>
         {

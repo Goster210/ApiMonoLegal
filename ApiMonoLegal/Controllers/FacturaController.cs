@@ -9,11 +9,13 @@ namespace ApiMonoLegal.Controllers
     [ApiController]
     public class FacturaController : ControllerBase
     {
-        public IFacturaServices _facturaServices;
+        private IFacturaServices _facturaServices;
+
 
         public FacturaController(IFacturaServices facturaServices) 
         {
-            _facturaServices = facturaServices;
+            this._facturaServices = facturaServices;
+
         }
         
         [HttpGet]

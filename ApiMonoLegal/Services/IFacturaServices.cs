@@ -17,8 +17,14 @@ namespace ApiMonoLegal.Services
         //ELIMINAR ELEMENTO (facturas)
 
         public void Delete(string codigoFactura);
-        //Envio de correo para acualizar estado (facturas)
+        //Envio de correo
 
         public void SendEmail(string codigoFactura);
+        //busca una factura
+        public Factura BuscarFactura(string codigoFactura);
+
+        //cambia el estado de la factura segun el caso
+        public Factura CambioEstadoFactura(String estadoActual, Factura factura);
+
     }
 }

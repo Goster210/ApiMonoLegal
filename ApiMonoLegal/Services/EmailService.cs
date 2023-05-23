@@ -11,9 +11,8 @@ namespace ApiMonoLegal.Services
         //constructor
         public EmailService() { }
         //envia el correo electronica gracias a diversos metodos
-        public Factura SendEmail(string codigoFactura, Factura factura)
+        public void SendEmail(Factura factura)
         {
-
 
             string estadoFactura = factura.estado.ToString();
             string correoUsuario = factura.correo.ToString();
@@ -26,8 +25,8 @@ namespace ApiMonoLegal.Services
                     + estadoFactura
                     + " por tal motivo a pasado a segundorecordatorio";
 
-               
-                return this.cambioEstadoFactura(estadoFactura, factura);
+                Console.WriteLine(dataSendEmail(correoUsuario, mensaje));
+
             }
             else if (estadoFactura == "segundorecordatorio")
             {
@@ -36,18 +35,15 @@ namespace ApiMonoLegal.Services
             + estadoFactura
             + " por tal motivo lo vamos a desactivar";
 
-                dataSendEmail(correoUsuario, mensaje);
                 Console.WriteLine(dataSendEmail(correoUsuario, mensaje));
 
-                return this.cambioEstadoFactura(estadoFactura, factura);
              
             }
 
-            dataSendEmail(correoUsuario, mensaje);
-            Console.WriteLine(dataSendEmail(correoUsuario, mensaje));
-            return this.cambioEstadoFactura(estadoFactura, factura); ;
+            
+
         }
-         //envia el coreo electronico al usuario junto con el mensaje
+         //envia el correo electronico al usuario junto con el mensaje
         public String dataSendEmail(String correoUsuario, String mensaje) {
 
             var fromAddress = new MailAddress("rjuanjoser@gmail.com");
@@ -83,21 +79,7 @@ namespace ApiMonoLegal.Services
             
 
         }
-        //cambia el estado de la factura segun el caso
-        public Factura cambioEstadoFactura(String estadoActual, Factura factura)
-        {
-            if (estadoActual == "primerrecordatorio")
-            {
-                factura.estado = "segundorecordatorio";
-
-                return factura;
-            }
-            else if (estadoActual == "segundorecordatorio")
-            {
-                return factura;
-            }
-            return factura;
-        }
+   
 
     }
 }
