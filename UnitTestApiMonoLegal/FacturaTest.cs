@@ -39,7 +39,6 @@ namespace UnitTestApiMonoLegal
             var facturasResultantes = Assert.IsType<List<Factura>>(okResult.Value);
             //comprobamos que las lista de facturas tenga almenos una factura
             Assert.True(facturasResultantes.Count > 0);
-
         }
 
 
@@ -50,6 +49,7 @@ namespace UnitTestApiMonoLegal
 
             //creo un objeto de tipo (FacturaService)
             var facturaServices = new Mock<IFacturaServices>();
+
             // creo un objeto de tipo factura
             var newFactura = new Factura(
                 "P-00003",
@@ -117,6 +117,7 @@ namespace UnitTestApiMonoLegal
         public void Delete()
         {
             var facturaServices = new Mock<IFacturaServices>();
+          
             var newfactura = new Factura(
                 "P-00003",
                 "Daniel Felipe Cordoba",
@@ -141,20 +142,43 @@ namespace UnitTestApiMonoLegal
 
             //elimino dicha factura
             var deleteFactura = facturaController.Delete(newfactura.codigoFactura);
-
             var okResult = Assert.IsType<OkObjectResult>(deleteFactura);
             var codigoFacturaEliminada = Assert.IsType<String>(okResult.Value);
 
-            //miramos que el codigo de la factura sea el mismo que el de la factura eliminada 
+            //miramos que el codigo de la factura sea el mismo que el de la factura eliminada
+            //
             Assert.Equal(newfactura.codigoFactura, codigoFacturaEliminada);
+
 
         }
 
         [Fact]
         public void sendEmail()
         {
+            var newfactura = new Factura(
+           "P-00003",
+           "Daniel Felipe Cordoba",
+           "rjuanjoser@gmail.com",
+           "Paipa",
+           10548,
+           3000,
+           200,
+           55,
+           12,
+           null,
+           "primerrecordatorio",
+           false,
+           null
+       );
+            var facturaServices = new Mock<IFacturaServices>();
+            var facturaController = new FacturaController(facturaServices.Object);
+            var sendEmail = facturaController.SendEmail(newfactura.codigoFactura);
 
-            //pendiente 
+            var okResult = Assert.IsType<OkObjectResult>(sendEmail);
+            var codigoFacturaEmail = Assert.IsType<String>(okResult.Value);
+
+   
+            Assert.Equal(newfactura.codigoFactura, codigoFacturaEmail);
         }
     }
     }

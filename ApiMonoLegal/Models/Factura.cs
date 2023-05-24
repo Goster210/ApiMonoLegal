@@ -7,33 +7,40 @@ namespace ApiMonoLegal.Models
         // Variables de la entidad
         [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.String)]
-        public string codigoFactura { get;  set; }
+        public string codigoFactura { get; private set; }
         [BsonElement("cliente")]
-        public string cliente { get;  set; }
+        public string cliente { get; private set; }
         [BsonElement("correo")]
-        public string correo { get;  set; }
+        public string correo { get; private set; }
         [BsonElement("ciudad")]
-        public string ciudad { get;  set; }
+        public string ciudad { get; private set; }
         [BsonElement("nit")]
-        public long nit { get;  set; }
+        public long nit { get; private set; }
         [BsonElement("totalFactura")]
-        public double totalFactura { get;  set; }
+        public double totalFactura { get; private set; }
         [BsonElement("subTotal")]
-        public double subTotal { get;  set; }
+        public double subTotal { get; private set; }
         [BsonElement("iva")]
-        public double iva { get;  set; }
+        public double iva { get; private set; }
         [BsonElement("retencion")]
-        public double retencion { get;  set; }
+        public double retencion { get; private set; }
         [BsonElement("fechaCreacion")]
-        public DateTime? fechaCreacion { get;  set; }
+        public DateTime? fechaCreacion { get; private set; }
         [BsonElement("estado")]
-        public string estado { get;  set; }
+        // como tengo que modificar este dato desde otras clases el setter tiene que ser publico
+        public string estado { get; set; }
         [BsonElement("pagada")]
-        public bool pagada { get;  set; }
+        public bool pagada { get; private set; }
         [BsonElement("fechaPago")]
-        public DateTime? fechaPago { get;  set; }
+        public DateTime? fechaPago { get; private set; }
 
-        // Constructor
+        private Factura()
+        {
+            // Constructor privado vacío para uso interno.
+        }
+
+        // Constructor para instanciar la entidad en otras clases
+
         public Factura(string codigoFactura, string cliente, string correo, string ciudad, long nit, double totalFactura, double subTotal, double iva, double retencion, DateTime? fechaCreacion, string estado, bool pagada, DateTime? fechaPago)
         {
             this.codigoFactura = codigoFactura;
