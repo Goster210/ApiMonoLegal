@@ -5,6 +5,7 @@ using ApiMonoLegal.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using ApiMonoLegal.Models;
 using Moq;
+using ApiMonoLegal.Repository;
 
 namespace UnitTestApiMonoLegal
 
@@ -25,8 +26,9 @@ namespace UnitTestApiMonoLegal
 
             // Crear una instancia de facturaServices utilizando el mock de IClienteSettings
             var emailServices = new EmailService();
-            var facturaServices = new FacturaServices(clienteSettings.Object, emailServices);
-            var facturaController = new FacturaController(facturaServices);
+            var facturaRepository = new FacturaRepository(clienteSettings.Object);
+            var facturaService = new FacturaServices(facturaRepository, emailServices);
+            var facturaController = new FacturaController(facturaService);
 
             var result = facturaController.Get();
             //esta prueba compreba que la lista no sea nula (vacia)
@@ -40,8 +42,6 @@ namespace UnitTestApiMonoLegal
             //comprobamos que las lista de facturas tenga almenos una factura
             Assert.True(facturasResultantes.Count > 0);
         }
-
-
 
         [Fact]
         public void Create()

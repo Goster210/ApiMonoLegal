@@ -1,4 +1,5 @@
 ﻿using ApiMonoLegal.Models;
+using ApiMonoLegal.Repository;
 using MongoDB.Driver;
 
 
@@ -6,42 +7,40 @@ namespace ApiMonoLegal.Services
 {
     public class FacturaServices:IFacturaServices
     {
-        private IMongoCollection<Factura> _Facturas;
+
         private IEmailService _emailService;
+        private IFacturaRepository _facturaRepository;
         //constructor
-        public FacturaServices(IClienteSettings settings, IEmailService emailService) 
+        public FacturaServices(IFacturaRepository facturaRepository, IEmailService emailService) 
         {
-            var clienteMongo = new MongoClient(settings.Server);
-            //conexion con la base de datos
-            var db = clienteMongo.GetDatabase(settings.Database);
-            //conexion con la coleccion (facturas)
-            _Facturas = db.GetCollection<Factura>(settings.Collection);
+            _facturaRepository = facturaRepository;
             //servicio de email
             _emailService = emailService;
         }
 
         // lista de todas las facturas
         public List<Factura> Get() {
-            return _Facturas.Find(d => true).ToList();
+            List<Factura>  lista = _facturaRepository.ListaFacturas();
+            return lista;
         }
         // crear una factura
         public Factura Create(Factura factura) {
-            _Facturas.InsertOne(factura);
+            _facturaRepository.CrearFactura(factura);
             return factura;
         }
         // actualizar una factura
         public void Update(string codigoFactura, Factura factura) {
-            _Facturas.ReplaceOne(factura => factura.codigoFactura == codigoFactura, factura);
+            _facturaRepository.ActiualizarFactura(codigoFactura, factura);
         }
         // eliminar una factura
         public void Delete(string codigoFactura)
         {
-            _Facturas.DeleteOne(d => d.codigoFactura == codigoFactura);
+            _facturaRepository.EliminarFactura(codigoFactura);
         }
         // buscar una factura
         public Factura BuscarFactura(string codigoFactura)
         {
-            Factura factura = Get().Find(d => d.codigoFactura == codigoFactura);
+            Factura factura = _facturaRepository.BuscarFactura(codigoFactura);
             return factura;
         }
 
@@ -70,8 +69,9 @@ namespace ApiMonoLegal.Services
             //cambio el estado de la factura
             Factura facturaNuevoEstado = this.CambioEstadoFactura(factura.estado, factura);
             //actualizo mi factura
-            _Facturas.ReplaceOne(factura => factura.codigoFactura == codigoFactura, facturaNuevoEstado);
-          
+            _facturaRepository.CambioEstado(factura, codigoFactura, facturaNuevoEstado);
+
+
         }
     }
 }

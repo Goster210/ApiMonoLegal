@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApiMonoLegal.Repository;
 
 namespace ApiMonoLegal;
 
@@ -36,7 +37,9 @@ public class Startup
         services.AddSingleton<IClienteSettings>(d => d.GetRequiredService<IOptions<ClienteSettings>>().Value);
         //inyeccion por medio de mi interfaz y los servicios
         services.AddSingleton<IFacturaServices, FacturaServices>();
+        services.AddSingleton<IFacturaRepository, FacturaRepository>();
         services.AddSingleton<IEmailService, EmailService>();
+        
         services.AddControllers();
         services.AddSwaggerGen(c =>
         {
